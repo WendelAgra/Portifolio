@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wendel Agra - Analista de Teste/QA Jr</title>
+    <title>Wendel Vinicius - QA Engineer</title>
     
-    <!-- Meta Description para SEO -->
-    <meta name="description" content="Portfólio de Wendel Agra, Analista de Teste/QA Jr. Especialista em Automação com Cypress, Robot Framework, Appium, Python e metodologias ágeis.">
+    <!-- Meta Tags SEO & Open Graph (Para ficar bonito no WhatsApp/LinkedIn) -->
+    <meta name="description" content="Portfólio de Wendel Vinicius, QA Engineer. Especialista em Automação Web, Mobile e API.">
+    <meta property="og:title" content="Wendel Vinicius - QA Engineer">
+    <meta property="og:description" content="Especialista em Automação de Testes (Cypress, Playwright, Robot Framework, Appium).">
+    <meta property="og:image" content="https://placehold.co/1200x630/111827/0ea5e9?text=Wendel+Vinicius+%7C+QA+Engineer">
+    <meta property="og:url" content="https://wendelagra.github.io/">
     
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Configuração Tailwind -->
     <script>
         tailwind.config = {
             theme: {
@@ -21,11 +24,16 @@
                             100: '#1f2937',
                             200: '#111827',
                             300: '#0c111d',
+                            400: '#05070a',
                         },
                         accent: {
-                            light: '#38bdf8', // Sky 400
-                            DEFAULT: '#0ea5e9', // Sky 500
-                            dark: '#0284c7', // Sky 600
+                            light: '#38bdf8',
+                            DEFAULT: '#0ea5e9', 
+                            dark: '#0284c7', 
+                        },
+                        neon: {
+                            purple: '#a855f7',
+                            pink: '#ec4899'
                         }
                     },
                     fontFamily: {
@@ -35,12 +43,17 @@
                         mono: ['Roboto Mono', 'monospace'],
                     },
                     animation: {
-                        'infinite-scroll': 'infinite-scroll 35s linear infinite', /* Ajustado tempo para acomodar mais itens */
+                        'infinite-scroll': 'infinite-scroll 40s linear infinite',
+                        'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         'infinite-scroll': {
                             from: { transform: 'translateX(0)' },
-                            to: { transform: 'translateX(-100%)' },
+                            to: { transform: 'translateX(-50%)' }, /* Ajustado para scroll perfeito */
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: 1, filter: 'drop-shadow(0 0 15px rgba(14, 165, 233, 0.6))' },
+                            '50%': { opacity: .7, filter: 'drop-shadow(0 0 5px rgba(14, 165, 233, 0.3))' },
                         }
                     }
                 }
@@ -48,137 +61,196 @@
         }
     </script>
     
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@700;900&family=Inter:wght@300;400;500;700&family=Orbitron:wght@400;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <!-- Alpine.js -->
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
-    <!-- AOS - Animate On Scroll -->
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- Favicon -->
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧪</text></svg>">
 
     <style>
-        /* ===== ESTILOS GERAIS ===== */
         body { 
-            background-color: #0c111d;
+            background-color: transparent; /* Alterado para revelar a aurora */
             color: #e5e7eb;
             overflow-x: hidden;
         }
         
-        /* Glassmorphism Utilities */
-        .glass {
-            background: rgba(31, 41, 55, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
         .glass-card {
-            background: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(56, 189, 248, 0.1);
+            background: rgba(17, 24, 39, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
             transition: all 0.3s ease;
         }
 
-        .glass-card:hover {
-            border-color: rgba(56, 189, 248, 0.5);
-            box-shadow: 0 0 20px rgba(56, 189, 248, 0.15);
-            transform: translateY(-5px);
+        /* Bloqueio de cliques corrigido (Para não bugar formulários) */
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(45deg, transparent, transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            transition: all 0.3s ease;
+            pointer-events: none; /* CORREÇÃO AQUI */
         }
 
-        /* Scrollbar Personalizada */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background-color: #0c111d; }
-        ::-webkit-scrollbar-thumb {
-            background-color: #0ea5e9;
-            border-radius: 4px;
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(14, 165, 233, 0.3);
         }
+
+        .glass-card.hover-accent:hover::before {
+            background: linear-gradient(45deg, #0ea5e9, #a855f7);
+        }
+        
+        .glass-card.hover-purple:hover::before {
+            background: linear-gradient(45deg, #a855f7, #ec4899);
+        }
+        
+        .glass-card.hover-green:hover::before {
+            background: linear-gradient(45deg, #22c55e, #10b981);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background-color: #05070a; }
+        ::-webkit-scrollbar-thumb { background-color: #0ea5e9; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background-color: #38bdf8; }
 
-        /* Fundo Animado (Particles) */
         #particles-js {
             position: fixed;
             width: 100%;
             height: 100%;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             z-index: 0;
             pointer-events: none;
         }
 
-        /* Gradiente Animado da Logo */
-        @keyframes gradient-animation {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        /* ===== NOVO FUNDO: AURORA + GRID ===== */
+        .cyber-grid {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-size: 60px 60px;
+            background-image: 
+                linear-gradient(to right, rgba(14, 165, 233, 0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(14, 165, 233, 0.04) 1px, transparent 1px);
+            mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+            pointer-events: none;
         }
-        #grad-wa-animated-defs {
-            background: linear-gradient(-45deg, #22d3ee, #8b5cf6, #ec4899, #22d3ee);
-            background-size: 400% 400%;
-            animation: gradient-animation 8s ease infinite;
+
+        .aurora-container {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+            overflow: hidden;
+            background-color: #05070a; /* Fundo base escuro realocado pra cá */
+            pointer-events: none;
         }
-        
-        /* Utilitários de Texto */
+
+        .aurora-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.6;
+            animation: ambient-float 15s infinite alternate ease-in-out;
+        }
+
+        .aurora-1 { background: rgba(14, 165, 233, 0.3); width: 50vw; height: 50vw; top: -10%; left: -10%; }
+        .aurora-2 { background: rgba(168, 85, 247, 0.25); width: 60vw; height: 60vw; bottom: -20%; right: -10%; animation-delay: -5s; }
+        .aurora-3 { background: rgba(236, 72, 153, 0.2); width: 40vw; height: 40vw; top: 40%; left: 30%; animation-delay: -10s; }
+
+        @keyframes ambient-float {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(5%, 5%) scale(1.1); }
+            100% { transform: translate(-5%, 2%) scale(0.9); }
+        }
+
         .text-gradient {
-            background: linear-gradient(to right, #38bdf8, #818cf8);
+            background: linear-gradient(to right, #38bdf8, #a855f7);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* Animação do Terminal CSS */
+        .typing-animation {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid #22c55e;
+            animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
+        }
+        @keyframes typing { from { width: 0 } to { width: 100% } }
+        @keyframes blink-caret { from, to { border-color: transparent } 50% { border-color: #22c55e; } }
     </style>
 </head>
-<body class="font-body antialiased selection:bg-accent selection:text-white">
+
+<!-- Alpine.js gerencia o idioma ('pt' ou 'en') e o menu mobile -->
+<body class="font-body antialiased selection:bg-accent selection:text-white" x-data="{ lang: 'pt', mobileMenuOpen: false }">
+
+    <!-- Fundo Animado Base (Aurora + Grid) -->
+    <div class="aurora-container">
+        <div class="aurora-blob aurora-1"></div>
+        <div class="aurora-blob aurora-2"></div>
+        <div class="aurora-blob aurora-3"></div>
+    </div>
+    <div class="cyber-grid"></div>
 
     <div id="particles-js"></div>
 
     <!-- ===== Header ===== -->
-    <header x-data="{ mobileMenuOpen: false, scrolled: false }" 
+    <header x-data="{ scrolled: false }" 
             @scroll.window="scrolled = (window.pageYOffset > 20)"
-            :class="{ 'bg-dark-300/90 shadow-lg border-b border-white/5': scrolled, 'bg-transparent': !scrolled }"
-            class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-sm">
+            :class="{ 'bg-dark-300/90 shadow-[0_4px_30px_rgba(0,0,0,0.5)] border-b border-white/5': scrolled, 'bg-transparent': !scrolled }"
+            class="fixed top-0 w-full z-50 transition-all duration-300 backdrop-blur-md">
         
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            
+        <nav class="container mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
             <!-- Logo -->
-            <a href="#home" class="relative z-50 group">
-                 <svg width="240" height="40" viewBox="0 0 450 100" class="h-10 md:h-12 w-auto transition-transform group-hover:scale-105" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                         <linearGradient id="grad-wa-animated" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" style="stop-color:#22d3ee;" />
-                            <stop offset="100%" style="stop-color:#a78bfa;" />
-                        </linearGradient>
-                    </defs>
-                    <g transform="translate(20, 0)" id="monogram-w">
-                        <path d="M 20 20 L 55 80 L 90 20 L 125 80 L 160 20" stroke="url(#grad-wa-animated)" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                        <path d="M 50 50 L 35 50 L 25 60 L 35 70 L 50 70 M 130 50 L 145 50 L 155 60 L 145 70 L 130 70" stroke="#818cf8" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-                    </g>
-                    <text x="210" y="45" class="font-tech" font-size="28" fill="#f1f5f9" font-weight="700">WENDEL AGRA</text>
-                    <text x="210" y="72" class="font-mono" font-size="16" fill="#94a3b8" letter-spacing="0.5">&lt;QA Engineer /&gt;</text>
-                </svg>
+            <a href="#home" class="relative z-50 group flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-accent to-neon-purple p-[2px] animate-pulse-glow">
+                    <div class="w-full h-full bg-dark-200 rounded-lg flex items-center justify-center font-tech font-bold text-xl text-white">
+                        W
+                    </div>
+                </div>
+                <div class="hidden sm:block">
+                    <div class="font-tech font-bold text-white text-lg tracking-wider">WENDEL VINICIUS</div>
+                    <div class="font-mono text-accent text-xs">&lt;QA Engineer /&gt;</div>
+                </div>
             </a>
 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex space-x-8 items-center font-medium text-sm tracking-wide">
-                <a href="#sobre" class="text-gray-300 hover:text-accent transition-colors">SOBRE</a>
-                <a href="#experiencia" class="text-gray-300 hover:text-accent transition-colors">JORNADA</a>
-                <a href="#formacao" class="text-gray-300 hover:text-accent transition-colors">FORMAÇÃO</a>
-                <a href="#projetos" class="text-gray-300 hover:text-accent transition-colors">PROJETOS</a>
-                <a href="#contato" class="bg-accent hover:bg-accent-dark text-white py-2 px-5 rounded-full transition-all hover:shadow-[0_0_15px_rgba(14,165,233,0.5)]">
-                    Fale Comigo
-                </a>
+            <div class="hidden md:flex space-x-6 lg:space-x-8 items-center font-medium text-sm tracking-wide">
+                <a href="#sobre" class="text-gray-300 hover:text-accent transition-colors" x-text="lang === 'pt' ? 'SOBRE' : 'ABOUT'"></a>
+                <a href="#experiencia" class="text-gray-300 hover:text-accent transition-colors" x-text="lang === 'pt' ? 'JORNADA' : 'JOURNEY'"></a>
+                <a href="#formacao" class="text-gray-300 hover:text-accent transition-colors" x-text="lang === 'pt' ? 'FORMAÇÃO' : 'EDUCATION'"></a>
+                <a href="#projetos" class="text-gray-300 hover:text-accent transition-colors" x-text="lang === 'pt' ? 'PROJETOS' : 'PROJECTS'"></a>
+                
+                <!-- Botão de Idioma -->
+                <button @click="lang = lang === 'pt' ? 'en' : 'pt'" class="flex items-center gap-1 bg-dark-100 border border-gray-700 px-3 py-1 rounded-full text-xs font-bold hover:border-accent transition-colors">
+                    <span :class="lang === 'pt' ? 'text-accent' : 'text-gray-500'">PT</span>
+                    <span class="text-gray-600">|</span>
+                    <span :class="lang === 'en' ? 'text-accent' : 'text-gray-500'">EN</span>
+                </button>
+
+                <a href="#contato" class="bg-gradient-to-r from-accent to-blue-600 hover:from-accent-dark hover:to-blue-700 text-white py-2 px-5 rounded-full transition-all hover:shadow-[0_0_15px_rgba(14,165,233,0.5)]" x-text="lang === 'pt' ? 'Fale Comigo' : 'Contact Me'"></a>
             </div>
 
-            <!-- Mobile Menu Button -->
-            <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-white focus:outline-none relative z-50">
-                <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
-                    <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </button>
+            <!-- Mobile Controls -->
+            <div class="flex items-center gap-4 md:hidden relative z-50">
+                <button @click="lang = lang === 'pt' ? 'en' : 'pt'" class="flex items-center gap-1 bg-dark-100 border border-gray-700 px-2 py-1 rounded-full text-[10px] font-bold">
+                    <span :class="lang === 'pt' ? 'text-accent' : 'text-gray-500'">PT</span>
+                    <span class="text-gray-600">|</span>
+                    <span :class="lang === 'en' ? 'text-accent' : 'text-gray-500'">EN</span>
+                </button>
+                <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-white focus:outline-none">
+                    <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path x-show="!mobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        <path x-show="mobileMenuOpen" x-cloak stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
         </nav>
 
         <!-- Mobile Menu Overlay -->
@@ -189,223 +261,235 @@
              x-transition:leave="transition ease-in duration-150"
              x-transition:leave-start="opacity-100 translate-y-0"
              x-transition:leave-end="opacity-0 -translate-y-5"
-             class="absolute top-0 left-0 w-full h-screen bg-dark-200/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-8 md:hidden z-40">
-            <a href="#sobre" @click="mobileMenuOpen = false" class="text-2xl font-bold text-white hover:text-accent">Sobre</a>
-            <a href="#experiencia" @click="mobileMenuOpen = false" class="text-2xl font-bold text-white hover:text-accent">Jornada</a>
-            <a href="#formacao" @click="mobileMenuOpen = false" class="text-2xl font-bold text-white hover:text-accent">Formação</a>
-            <a href="#projetos" @click="mobileMenuOpen = false" class="text-2xl font-bold text-white hover:text-accent">Projetos</a>
-            <a href="#contato" @click="mobileMenuOpen = false" class="text-2xl font-bold text-accent">Contato</a>
+             class="absolute top-0 left-0 w-full h-screen bg-dark-300/95 backdrop-blur-xl flex flex-col items-center justify-center space-y-8 md:hidden z-40">
+            <a href="#sobre" @click="mobileMenuOpen = false" class="text-2xl font-bold text-white hover:text-accent" x-text="lang === 'pt' ? 'Sobre' : 'About'"></a>
+            <a href="#experiencia" @click="mobileMenuOpen = false" class="text-2xl font-bold text-white hover:text-accent" x-text="lang === 'pt' ? 'Jornada' : 'Journey'"></a>
+            <a href="#formacao" @click="mobileMenuOpen = false" class="text-2xl font-bold text-white hover:text-accent" x-text="lang === 'pt' ? 'Formação' : 'Education'"></a>
+            <a href="#projetos" @click="mobileMenuOpen = false" class="text-2xl font-bold text-white hover:text-accent" x-text="lang === 'pt' ? 'Projetos' : 'Projects'"></a>
+            <a href="#contato" @click="mobileMenuOpen = false" class="text-2xl font-bold text-accent" x-text="lang === 'pt' ? 'Contato' : 'Contact'"></a>
         </div>
     </header>
 
     <main class="relative z-10">
 
         <!-- ===== Hero Section ===== -->
-        <section id="home" class="min-h-screen flex items-center justify-center px-6 relative overflow-hidden">
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-dark-300/50 to-dark-300 z-0"></div>
+        <section id="home" class="min-h-[100svh] flex items-center justify-center px-4 md:px-6 relative overflow-hidden pt-20 pb-10">
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-dark-300/20 to-dark-400/40 z-0"></div>
             
-            <div class="max-w-5xl w-full grid grid-cols-1 md:grid-cols-2 gap-12 items-center z-10 pt-20">
-                <div class="text-left order-2 md:order-1" data-aos="fade-right">
-                    <div class="inline-block px-3 py-1 mb-4 text-xs font-semibold tracking-wider text-green-400 uppercase bg-green-400/10 rounded-full border border-green-400/20">
-                        Analista de Teste / QA Jr
+            <div class="max-w-6xl w-full grid grid-cols-1 lg:grid-cols-2 gap-12 items-center z-10">
+                <div class="text-left order-2 lg:order-1 text-center lg:text-left" data-aos="fade-right">
+                    <div class="inline-block px-4 py-1.5 mb-6 text-xs md:text-sm font-bold tracking-wider text-accent uppercase bg-accent/10 rounded-full border border-accent/20">
+                        <span x-text="lang === 'pt' ? 'Quality Assurance Engineer' : 'Quality Assurance Engineer'"></span>
                     </div>
-                    <h1 class="text-4xl sm:text-6xl md:text-7xl font-black text-white leading-tight mb-6 font-display">
-                        Olá, sou <br>
-                        <span class="text-gradient">Wendel Agra</span>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white leading-tight mb-4 font-display">
+                        <span x-text="lang === 'pt' ? 'Olá, sou' : 'Hi, I am'"></span><br>
+                        <span class="text-gradient">Wendel Vinicius</span>
                     </h1>
-                    <p class="text-lg text-gray-400 mb-8 max-w-lg leading-relaxed border-l-4 border-accent pl-4">
-                        Especialista em Automação de Testes (Cypress, Robot Framework, Appium) e apaixonado por garantir a qualidade de software em todo o seu ciclo de vida.
+                    <p class="text-base md:text-lg text-gray-400 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed lg:border-l-4 lg:border-accent lg:pl-4">
+                        <span x-text="lang === 'pt' ? 'Especialista em Automação Web, Mobile e API. Focado em garantir qualidade de ponta a ponta com Cypress, Playwright, Robot Framework e IA.' : 'Specialist in Web, Mobile, and API Automation. Focused on ensuring end-to-end quality with Cypress, Playwright, Robot Framework, and AI.'"></span>
                     </p>
                     
-                    <div class="flex flex-wrap gap-4">
-                        <a href="#projetos" class="bg-accent hover:bg-accent-dark text-white font-bold py-3 px-8 rounded-lg transition-all shadow-lg hover:shadow-accent/40 flex items-center gap-2 group">
-                            Meu Projeto
+                    <div class="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start">
+                        <a href="#projetos" class="bg-gradient-to-r from-accent to-blue-600 hover:from-accent-dark hover:to-blue-700 text-white font-bold py-3.5 px-8 rounded-lg transition-all shadow-lg hover:shadow-accent/40 flex items-center justify-center gap-2 group w-full sm:w-auto">
+                            <span x-text="lang === 'pt' ? 'Ver Projetos' : 'View Projects'"></span>
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                        </a>
+                        
+                        <!-- NOVO: Botão de Baixar CV -->
+                        <a href="Wendel_Vinicius_QA_CV_Atualizado.pdf" target="_blank" download class="bg-dark-200 border border-gray-700 hover:border-accent text-white font-bold py-3.5 px-8 rounded-lg transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            <span x-text="lang === 'pt' ? 'Baixar CV' : 'Download Resume'"></span>
                         </a>
                     </div>
                 </div>
 
-                <div class="order-1 md:order-2 flex justify-center relative" data-aos="fade-left">
+                <!-- Avatar com bordas geométricas -->
+                <div class="order-1 lg:order-2 flex justify-center relative" data-aos="fade-left">
                     <div class="absolute inset-0 bg-accent/20 blur-[100px] rounded-full"></div>
-                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full p-2 bg-gradient-to-br from-accent via-purple-500 to-pink-500 animate-[spin_10s_linear_infinite]">
+                    <div class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-80 lg:h-80 rounded-full p-2 bg-gradient-to-br from-accent via-neon-purple to-neon-pink animate-[spin_10s_linear_infinite]">
                         <div class="w-full h-full rounded-full bg-dark-300 p-1 overflow-hidden relative">
-                             <!-- Imagem de Perfil -->
-                            <img src="wendel-vinicius.jpg" alt="Wendel Vinicius" class="w-full h-full object-cover rounded-full animate-[spin_10s_linear_infinite_reverse]" onerror="this.src='https://ui-avatars.com/api/?name=Wendel+Agra&background=0ea5e9&color=fff&size=512'">
+                            <img src="wendel-vinicius.jpg" alt="Wendel Vinicius" class="w-full h-full object-cover rounded-full animate-[spin_10s_linear_infinite_reverse]" onerror="this.src='https://ui-avatars.com/api/?name=Wendel+Vinicius&background=0ea5e9&color=fff&size=512'">
                         </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Scroll Indicator -->
-            <a href="#tech-scroll" class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce text-gray-500 hover:text-accent transition-colors">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-            </a>
         </section>
 
-        <!-- ===== NEW: Tech Marquee Section ===== -->
-        <section id="tech-scroll" class="py-10 bg-dark-200 border-y border-gray-800 overflow-hidden">
-            <div class="relative w-full max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex w-full overflow-hidden" x-data="{}">
-                    <div class="flex animate-infinite-scroll space-x-16 items-center">
-                        <!-- Itens duplicados para o efeito de loop infinito -->
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Cypress</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Robot Framework</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Appium</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Python</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Docker</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Git</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> GitLab</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Jira</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> SQL</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Scrum</span>
-                        <!-- Duplicate -->
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Cypress</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Robot Framework</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Appium</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Python</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Docker</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Git</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> GitLab</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Jira</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> SQL</span>
-                        <span class="text-2xl font-bold text-gray-400 flex items-center gap-2"><span class="text-accent">●</span> Scrum</span>
-                    </div>
+        <!-- ===== Tech Marquee ===== -->
+        <section class="py-6 bg-dark-200/40 border-y border-white/5 overflow-hidden flex backdrop-blur-sm relative z-10">
+            <div class="flex w-max animate-infinite-scroll">
+                <!-- Bloco 1 -->
+                <div class="flex items-center justify-center gap-10 md:gap-16 px-5 md:px-8 whitespace-nowrap">
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-accent">●</span> Cypress</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-neon-purple">●</span> Playwright</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-accent">●</span> Robot Framework</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-neon-pink">●</span> Appium</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-yellow-500">●</span> Python</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-orange-500">●</span> Postman</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-blue-500">●</span> Docker</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-green-500">●</span> CI/CD</span>
+                </div>
+                <!-- Bloco 2 (Duplicado exato para o loop perfeito) -->
+                <div class="flex items-center justify-center gap-10 md:gap-16 px-5 md:px-8 whitespace-nowrap" aria-hidden="true">
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-accent">●</span> Cypress</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-neon-purple">●</span> Playwright</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-accent">●</span> Robot Framework</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-neon-pink">●</span> Appium</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-yellow-500">●</span> Python</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-orange-500">●</span> Postman</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-blue-500">●</span> Docker</span>
+                    <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-green-500">●</span> CI/CD</span>
                 </div>
             </div>
         </section>
 
         <!-- ===== Sobre & Skills ===== -->
-        <section id="sobre" class="py-20 bg-dark-200/50">
-            <div class="container mx-auto px-6">
-                
+        <section id="sobre" class="py-20 bg-dark-300/40 relative backdrop-blur-[2px]">
+            <div class="container mx-auto px-4 md:px-6">
                 <!-- Intro -->
                 <div class="max-w-4xl mx-auto mb-16">
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 font-display border-l-4 border-accent pl-4" data-aos="fade-up">Sobre Mim</h2>
-                    <div class="glass-card p-8 rounded-2xl text-lg text-gray-300 leading-relaxed space-y-4" data-aos="fade-up" data-aos-delay="100">
-                        <p>
-                            Sou graduado em Ciência da Computação e atuo como Analista de Teste/QA Jr. Minha expertise está na análise de requisitos e aplicação de metodologias ágeis (Scrum) para promover qualidade e eficiência.
-                        </p>
-                        <p>
-                            Sou orientado a resultados, garantindo entregas consistentes através de <strong class="text-accent">Automação de Testes</strong> e processos rigorosos de validação. Tenho experiência prática com <strong class="text-accent">Cypress, Robot Framework, Appium, Python e Jira</strong>, atuando tanto em testes manuais quanto automatizados.
-                        </p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 font-display border-l-4 border-accent pl-4" data-aos="fade-up" x-text="lang === 'pt' ? 'Sobre Mim' : 'About Me'"></h2>
+                    
+                    <div class="glass-card hover-accent p-6 md:p-8 rounded-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                        <!-- Elemento decorativo de fundo -->
+                        <div class="absolute -right-20 -top-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl pointer-events-none"></div>
+                        
+                        <div class="relative z-10 space-y-5 text-base md:text-lg text-gray-300 leading-relaxed">
+                            
+                            <p x-html="lang === 'pt' ? 'Atuando como <span class=\'text-white font-bold\'>QA Engineer</span> e graduando em Ciência da Computação (Caruaru-PE), minha missão é garantir entregas de software impecáveis. Transformo requisitos complexos de negócios em coberturas de teste robustas, garantindo a qualidade em toda a jornada de desenvolvimento.' : 'Acting as a <span class=\'text-white font-bold\'>QA Engineer</span> and majoring in Computer Science (Caruaru-PE, Brazil), my mission is to ensure flawless software delivery. I transform complex business requirements into robust test coverage, ensuring quality throughout the development journey.'"></p>
+                            
+                            <p x-html="lang === 'pt' ? 'Possuo sólida experiência prática com <span class=\'text-accent font-semibold\'>Automação Web, Mobile e API</span>. Utilizo ferramentas de ponta como <strong>Cypress, Playwright, Robot Framework, Appium e Postman</strong> para criar testes eficientes e escaláveis, totalmente integrados a esteiras de <span class=\'text-green-400 font-semibold\'>CI/CD</span>.' : 'I have solid hands-on experience with <span class=\'text-accent font-semibold\'>Web, Mobile, and API Automation</span>. I use cutting-edge tools like <strong>Cypress, Playwright, Robot Framework, Appium, and Postman</strong> to create efficient and scalable tests, fully integrated into <span class=\'text-green-400 font-semibold\'>CI/CD</span> pipelines.'"></p>
+                            
+                            <p x-html="lang === 'pt' ? 'Meu principal diferencial é a mentalidade voltada para a inovação: pesquiso ativamente sobre a aplicação de <span class=\'text-neon-purple font-semibold\'>Inteligência Artificial em QA</span>. Busco otimizar processos de validação e explorar testes guiados por IA para aumentar a velocidade e segurança das entregas ágeis.' : 'My main differential is an innovation-driven mindset: I actively research the application of <span class=\'text-neon-purple font-semibold\'>Artificial Intelligence in QA</span>. I seek to optimize validation processes and explore AI-guided testing to increase the speed and security of agile deliveries.'"></p>
+                            
+                            <!-- Divisor -->
+                            <div class="w-full h-px bg-gray-800 my-6"></div>
+                            
+                            <!-- Core Competencies -->
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-400 uppercase tracking-wider mb-4" x-text="lang === 'pt' ? 'Principais Competências' : 'Core Competencies'"></h4>
+                                <div class="flex flex-wrap gap-3">
+                                    <div class="flex items-center gap-2 bg-dark-200/60 border border-gray-700 px-4 py-2.5 rounded-xl hover:border-accent hover:text-white transition-all hover:-translate-y-1 cursor-default shadow-lg">
+                                        <svg class="w-4 h-4 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                        <span class="text-sm font-bold">Web / Mobile Automation</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 bg-dark-200/60 border border-gray-700 px-4 py-2.5 rounded-xl hover:border-neon-purple hover:text-white transition-all hover:-translate-y-1 cursor-default shadow-lg">
+                                        <svg class="w-4 h-4 text-neon-purple" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                                        <span class="text-sm font-bold">API Validation</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 bg-dark-200/60 border border-gray-700 px-4 py-2.5 rounded-xl hover:border-green-500 hover:text-white transition-all hover:-translate-y-1 cursor-default shadow-lg">
+                                        <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                        <span class="text-sm font-bold">CI/CD Integration</span>
+                                    </div>
+                                    <div class="flex items-center gap-2 bg-dark-200/60 border border-gray-700 px-4 py-2.5 rounded-xl hover:border-pink-500 hover:text-white transition-all hover:-translate-y-1 cursor-default shadow-lg">
+                                        <svg class="w-4 h-4 text-pink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                        <span class="text-sm font-bold">AI in QA</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Skills Grid -->
                 <div class="max-w-6xl mx-auto">
                     <h3 class="text-2xl font-bold text-center mb-10 font-display"><span class="text-accent">Tech</span> Stack</h3>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                         
-                        <!-- Automação e Linguagens -->
-                        <div class="glass-card p-6 rounded-xl relative overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
-                            <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <svg class="w-24 h-24 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+                        <!-- Automação -->
+                        <div class="glass-card hover-accent p-6 rounded-xl relative overflow-hidden group" data-aos="fade-up">
+                            <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                                <svg class="w-24 h-24 text-accent" fill="currentColor" viewBox="0 0 24 24"><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7v2H8v2h8v-2h-2v-2h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h18v12z"/></svg>
                             </div>
                             <h4 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
                                 <span class="w-2 h-8 bg-accent rounded-full"></span>
-                                Automação & Dev
+                                Automação
                             </h4>
-                            <div class="flex flex-wrap gap-3">
-                                <span class="bg-gray-800 border border-gray-700 hover:border-accent text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">
-                                    Cypress
-                                </span>
-                                <span class="bg-gray-800 border border-gray-700 hover:border-accent text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">
-                                    Robot Framework
-                                </span>
-                                <span class="bg-gray-800 border border-gray-700 hover:border-accent text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">
-                                    Appium
-                                </span>
-                                <span class="bg-gray-800 border border-gray-700 hover:border-accent text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">
-                                    Python
-                                </span>
-                                <span class="bg-gray-800 border border-gray-700 hover:border-accent text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">
-                                    JavaScript
-                                </span>
-                                <span class="bg-gray-800 border border-gray-700 hover:border-accent text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">
-                                    SQL
-                                </span>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">Cypress</span>
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">Playwright</span>
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">Robot Framework</span>
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">Appium</span>
                             </div>
                         </div>
 
-                        <!-- Testes e Processos -->
-                        <div class="glass-card p-6 rounded-xl relative overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
-                             <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <svg class="w-24 h-24 text-purple-500" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3h-4.18C14.4 1.84 13.3 1 12 1c-1.3 0-2.4.84-2.82 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 0c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm2 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        <!-- Backend & API -->
+                        <div class="glass-card hover-purple p-6 rounded-xl relative overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+                             <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                                <svg class="w-24 h-24 text-neon-purple" fill="currentColor" viewBox="0 0 24 24"><path d="M19.333 14.667a4.66 4.66 0 0 0-3.833-2.24V9.58a4.66 4.66 0 0 0 3.833-2.247 4.667 4.667 0 1 0-7.166 4.14v5.034a4.667 4.667 0 1 0 7.166-1.84z"/></svg>
                             </div>
                             <h4 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
-                                <span class="w-2 h-8 bg-purple-500 rounded-full"></span>
-                                QA & Processos
+                                <span class="w-2 h-8 bg-neon-purple rounded-full"></span>
+                                API & Dev
                             </h4>
-                            <div class="flex flex-wrap gap-3">
-                                <span class="bg-gray-800 border border-gray-700 hover:border-purple-500 text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">Testes Manuais</span>
-                                <span class="bg-gray-800 border border-gray-700 hover:border-purple-500 text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">Testes de Regressão</span>
-                                <span class="bg-gray-800 border border-gray-700 hover:border-purple-500 text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">Análise de Requisitos</span>
-                                <span class="bg-gray-800 border border-gray-700 hover:border-purple-500 text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">Scrum / Agile</span>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">Postman</span>
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">Python</span>
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">JavaScript</span>
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">SQL</span>
                             </div>
                         </div>
 
-                        <!-- Ferramentas -->
-                        <div class="glass-card p-6 rounded-xl relative overflow-hidden group" data-aos="fade-up" data-aos-delay="400">
-                             <div class="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <svg class="w-24 h-24 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z"/></svg>
+                        <!-- DevOps & QA -->
+                        <div class="glass-card hover-green p-6 rounded-xl relative overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+                             <div class="absolute top-0 right-0 p-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                                <svg class="w-24 h-24 text-green-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
                             </div>
                             <h4 class="text-xl font-bold text-white mb-4 flex items-center gap-2">
                                 <span class="w-2 h-8 bg-green-500 rounded-full"></span>
-                                Ferramentas
+                                QA & Ops
                             </h4>
-                            <div class="flex flex-wrap gap-3">
-                                <span class="bg-gray-800 border border-gray-700 hover:border-green-500 text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">Git, GitHub & GitLab</span>
-                                <span class="bg-gray-800 border border-gray-700 hover:border-green-500 text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">Docker</span>
-                                <span class="bg-gray-800 border border-gray-700 hover:border-green-500 text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">Jira</span>
-                                <span class="bg-gray-800 border border-gray-700 hover:border-green-500 text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">TestLink</span>
-                                <span class="bg-gray-800 border border-gray-700 hover:border-green-500 text-gray-300 text-sm px-3 py-1 rounded-full flex items-center gap-2 transition-colors">VS Code</span>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">Docker</span>
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">CI/CD</span>
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">Jira</span>
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">TestLink</span>
+                                <span class="bg-gray-800 border border-gray-700 text-gray-300 text-xs px-3 py-1.5 rounded-md">Scrum</span>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- ===== Seção de Experiência ===== -->
-        <section id="experiencia" class="py-20 relative">
-            <div class="container mx-auto px-6">
-                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-12 font-display text-center" data-aos="fade-up">Experiência Profissional</h2>
+        <!-- ===== Experiência ===== -->
+        <section id="experiencia" class="py-20 relative bg-dark-400/40 backdrop-blur-[2px]">
+            <div class="container mx-auto px-4 md:px-6">
+                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-12 font-display text-center" data-aos="fade-up" x-text="lang === 'pt' ? 'Experiência Profissional' : 'Professional Experience'"></h2>
                 
-                <div class="max-w-3xl mx-auto border-l-2 border-gray-700 ml-4 md:ml-auto pl-8 space-y-12">
+                <div class="max-w-3xl mx-auto border-l-2 border-gray-700 ml-4 md:mx-auto pl-6 md:pl-8 space-y-12">
                     
-                    <!-- Item 1: Rem Soft -->
-                    <div class="relative group" data-aos="fade-left">
-                        <span class="absolute -left-[41px] top-0 h-6 w-6 rounded-full bg-dark-100 border-4 border-accent group-hover:scale-125 transition-transform"></span>
-                        <div class="glass-card p-6 rounded-xl hover:border-accent/50 transition-colors">
-                            <div class="flex flex-col md:flex-row md:justify-between mb-2">
-                                <h3 class="text-xl font-bold text-white">Estagiário de QA</h3>
-                                <span class="text-accent text-sm font-mono">08/2025 - Atual</span>
+                    <!-- Rem Soft -->
+                    <div class="relative group" data-aos="fade-up">
+                        <span class="absolute -left-[33px] md:-left-[41px] top-0 h-5 w-5 md:h-6 md:w-6 rounded-full bg-dark-100 border-4 border-accent group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(14,165,233,0.5)]"></span>
+                        <div class="glass-card hover-accent p-5 md:p-6 rounded-xl">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-2 gap-1">
+                                <h3 class="text-xl font-bold text-white" x-text="lang === 'pt' ? 'Estagiário de QA' : 'QA Intern'"></h3>
+                                <span class="text-accent text-xs md:text-sm font-mono bg-accent/10 px-2 py-1 rounded">Ago/2024 - Atual</span>
                             </div>
-                            <p class="text-gray-400 text-sm mb-4">Rem Soft Sistemas - Florianópolis/SC</p>
-                            <ul class="text-gray-300 text-sm leading-relaxed list-disc list-inside space-y-1">
-                                <li>Execução de testes funcionais e de regressão, identificando e resolvendo <strong>95% dos defeitos</strong> antes da produção.</li>
-                                <li>Criação e execução de <strong>testes automatizados com Cypress</strong>.</li>
-                                <li>Ampliação da cobertura de testes em 20% com base em critérios de aceitação.</li>
-                                <li>Registro de bugs no Jira e TestLink.</li>
+                            <p class="text-gray-400 text-sm mb-4">Rem Soft Sistemas | Remoto</p>
+                            <ul class="text-gray-300 text-sm leading-relaxed list-none space-y-2">
+                                <li class="flex gap-2"><span class="text-accent">▹</span> <span x-text="lang === 'pt' ? 'Automação de testes de fluxos críticos utilizando Cypress.' : 'Automation of critical flows using Cypress.'"></span></li>
+                                <li class="flex gap-2"><span class="text-accent">▹</span> <span x-text="lang === 'pt' ? 'Execução de testes funcionais, regressivos e exploratórios.' : 'Execution of functional, regression, and exploratory testing.'"></span></li>
+                                <li class="flex gap-2"><span class="text-accent">▹</span> <span x-text="lang === 'pt' ? 'Validação de APIs utilizando Postman.' : 'API validation using Postman.'"></span></li>
+                                <li class="flex gap-2"><span class="text-accent">▹</span> <span x-text="lang === 'pt' ? 'Registro de bugs no Jira e TestLink, apoiando na redução de falhas em produção.' : 'Bug tracking in Jira and TestLink, helping reduce production failures.'"></span></li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Item 2: WATI -->
-                    <div class="relative group" data-aos="fade-left" data-aos-delay="100">
-                        <span class="absolute -left-[41px] top-0 h-6 w-6 rounded-full bg-dark-100 border-4 border-purple-500 group-hover:scale-125 transition-transform"></span>
-                        <div class="glass-card p-6 rounded-xl hover:border-purple-500/50 transition-colors">
-                             <div class="flex flex-col md:flex-row md:justify-between mb-2">
-                                <h3 class="text-xl font-bold text-white">Estagiário de QA</h3>
-                                <span class="text-purple-400 text-sm font-mono">06/2024 - 05/2025</span>
+                    <!-- WATI -->
+                    <div class="relative group" data-aos="fade-up">
+                        <span class="absolute -left-[33px] md:-left-[41px] top-0 h-5 w-5 md:h-6 md:w-6 rounded-full bg-dark-100 border-4 border-neon-purple group-hover:scale-125 transition-transform shadow-[0_0_10px_rgba(168,85,247,0.5)]"></span>
+                        <div class="glass-card hover-purple p-5 md:p-6 rounded-xl">
+                             <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-2 gap-1">
+                                <h3 class="text-xl font-bold text-white" x-text="lang === 'pt' ? 'Estagiário de QA' : 'QA Intern'"></h3>
+                                <span class="text-neon-purple text-xs md:text-sm font-mono bg-neon-purple/10 px-2 py-1 rounded">Jun/2023 - Mai/2024</span>
                             </div>
-                            <p class="text-gray-400 text-sm mb-4">WATI Consultoria - São Paulo/SP</p>
-                            <ul class="text-gray-300 text-sm leading-relaxed list-disc list-inside space-y-1">
-                                <li>Validação de funcionalidades críticas através de testes manuais e de regressão.</li>
-                                <li>Registro de bugs via Jira, acelerando o ciclo de correção em 30%.</li>
-                                <li>Participação ativa em rituais ágeis (Planning, Review, Retrospectiva).</li>
+                            <p class="text-gray-400 text-sm mb-4">WATI Consultoria | Remoto</p>
+                            <ul class="text-gray-300 text-sm leading-relaxed list-none space-y-2">
+                                <li class="flex gap-2"><span class="text-neon-purple">▹</span> <span x-text="lang === 'pt' ? 'Execução de testes exploratórios, funcionais e regressivos.' : 'Execution of exploratory, functional, and regression tests.'"></span></li>
+                                <li class="flex gap-2"><span class="text-neon-purple">▹</span> <span x-text="lang === 'pt' ? 'Gestão do ciclo de vida de bugs utilizando Jira.' : 'Bug lifecycle management using Jira.'"></span></li>
+                                <li class="flex gap-2"><span class="text-neon-purple">▹</span> <span x-text="lang === 'pt' ? 'Participação ativa em cerimônias ágeis Scrum e Kanban.' : 'Active participation in Agile Scrum and Kanban ceremonies.'"></span></li>
                             </ul>
                         </div>
                     </div>
@@ -414,56 +498,74 @@
             </div>
         </section>
 
-        <!-- ===== Seção de Formação e Certificações (SEPARADA) ===== -->
-        <section id="formacao" class="py-20 relative bg-dark-200/30">
-            <div class="container mx-auto px-6">
-                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-12 font-display text-center" data-aos="fade-up">Formação & Certificações</h2>
+        <!-- ===== Formação e Certificações ===== -->
+        <section id="formacao" class="py-20 relative bg-dark-300/40 backdrop-blur-[2px]">
+            <div class="container mx-auto px-4 md:px-6">
+                 <h2 class="text-3xl md:text-4xl font-bold text-white mb-12 font-display text-center" data-aos="fade-up" x-text="lang === 'pt' ? 'Formação & Certificações' : 'Education & Certifications'"></h2>
                 
-                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                 <!-- Grid 2x2 em telas médias/grandes -->
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
                     
-                      <!-- Card Graduação -->
-                      <div class="glass-card p-6 rounded-xl hover:border-green-500/50 transition-colors" data-aos="fade-up">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="p-3 bg-green-500/10 rounded-lg text-green-400">
-                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/></svg>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-white text-lg">Ciência da Computação</h3>
-                                <p class="text-gray-500 text-xs font-mono">Unifavip Wyden</p>
-                            </div>
+                      <!-- Faculdade -->
+                      <div class="glass-card p-6 rounded-xl flex flex-col h-full border-t-2 border-t-blue-500" data-aos="fade-up">
+                        <div class="flex-grow">
+                            <h3 class="font-bold text-white text-lg">Ciência da Computação</h3>
+                            <p class="text-gray-500 text-xs font-mono mb-3">UniFavip Wyden</p>
+                            <p class="text-gray-400 text-sm mb-4" x-text="lang === 'pt' ? 'Bacharelado com foco em desenvolvimento de software e metodologias ágeis.' : 'Bachelor degree focusing on software dev and agile methodologies.'"></p>
                         </div>
-                        <p class="text-gray-400 text-sm">Bacharelado com ênfase em desenvolvimento de software e metodologias ágeis.</p>
-                        <span class="inline-block mt-4 text-xs font-semibold text-green-400 bg-green-400/10 px-2 py-1 rounded">Conclusão: 12/2025</span>
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-800">
+                            <span class="text-xs font-semibold text-gray-400">2025</span>
+                            <!-- Botão Real -->
+                            <a href="https://consultadiploma.unifavip.com.br/diploma/1775.1775.70c413a7e051?utm_source=chatgpt.com" target="_blank" class="flex items-center gap-1 text-xs font-bold text-blue-400 hover:text-white bg-blue-500/10 hover:bg-blue-600 transition-colors px-3 py-1.5 rounded-md">
+                                <span x-text="lang === 'pt' ? 'Ver Diploma' : 'View Diploma'"></span>
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        </div>
                     </div>
 
-                    <!-- Card Bootcamp -->
-                    <div class="glass-card p-6 rounded-xl hover:border-yellow-500/50 transition-colors" data-aos="fade-up" data-aos-delay="100">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="p-3 bg-yellow-500/10 rounded-lg text-yellow-400">
-                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-white text-lg">Bootcamp QA</h3>
-                                <p class="text-gray-500 text-xs font-mono">Avanti / Softex</p>
-                            </div>
+                    <!-- Cypress -->
+                    <div class="glass-card p-6 rounded-xl flex flex-col h-full border-t-2 border-t-green-500" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex-grow">
+                            <h3 class="font-bold text-white text-lg">Cypress: Do Zero à Nuvem</h3>
+                            <p class="text-gray-500 text-xs font-mono mb-3">Udemy</p>
+                            <p class="text-gray-400 text-sm mb-4" x-text="lang === 'pt' ? 'Mapeamento E2E, Page Objects, CI/CD e relatórios avançados.' : 'E2E mapping, Page Objects, CI/CD, and advanced reporting.'"></p>
                         </div>
-                        <p class="text-gray-400 text-sm">Formação intensiva em planejamento, execução e automação de testes (80h).</p>
-                        <span class="inline-block mt-4 text-xs font-semibold text-yellow-400 bg-yellow-400/10 px-2 py-1 rounded">Emitido: 10/2025</span>
+                        <div class="flex items-center justify-end mt-auto pt-4 border-t border-gray-800">
+                            <a href="https://www.udemy.com/certificate/UC-4914581f-1776-4ced-80c1-686e66a7710d/?utm_source=chatgpt.com" target="_blank" class="flex items-center gap-1 text-xs font-bold text-green-400 hover:text-white bg-green-500/10 hover:bg-green-600 transition-colors px-3 py-1.5 rounded-md">
+                                <span x-text="lang === 'pt' ? 'Ver Certificado' : 'View Certificate'"></span>
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        </div>
                     </div>
 
-                    <!-- Card Python (Novo) -->
-                    <div class="glass-card p-6 rounded-xl hover:border-blue-500/50 transition-colors" data-aos="fade-up" data-aos-delay="200">
-                        <div class="flex items-center gap-3 mb-4">
-                            <div class="p-3 bg-blue-500/10 rounded-lg text-blue-400">
-                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/></svg>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-white text-lg">Python Fundamentals</h3>
-                                <p class="text-gray-500 text-xs font-mono">Especialização</p>
-                            </div>
+                    <!-- Robot & Appium -->
+                    <div class="glass-card p-6 rounded-xl flex flex-col h-full border-t-2 border-t-neon-purple" data-aos="fade-up">
+                        <div class="flex-grow">
+                            <h3 class="font-bold text-white text-lg">Robot Framework & Appium</h3>
+                            <p class="text-gray-500 text-xs font-mono mb-3">Udemy</p>
+                            <p class="text-gray-400 text-sm mb-4" x-text="lang === 'pt' ? 'Automação Mobile e Web orientada a palavras-chave (Keyword-driven).' : 'Keyword-driven Mobile and Web automation.'"></p>
                         </div>
-                        <p class="text-gray-400 text-sm">Estruturas Condicionais e de Repetição em Python. Foco em lógica para automação.</p>
-                        <span class="inline-block mt-4 text-xs font-semibold text-blue-400 bg-blue-400/10 px-2 py-1 rounded">Emitido: 21/06/2025</span>
+                        <div class="flex items-center justify-end mt-auto pt-4 border-t border-gray-800">
+                            <a href="https://www.udemy.com/certificate/UC-583370d2-6349-44b5-9313-6d2e23110b65/?utm_source=chatgpt.com" target="_blank" class="flex items-center gap-1 text-xs font-bold text-neon-purple hover:text-white bg-neon-purple/10 hover:bg-neon-purple transition-colors px-3 py-1.5 rounded-md">
+                                <span x-text="lang === 'pt' ? 'Ver Certificado' : 'View Certificate'"></span>
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Bootcamp QA -->
+                    <div class="glass-card p-6 rounded-xl flex flex-col h-full border-t-2 border-t-pink-500" data-aos="fade-up" data-aos-delay="100">
+                        <div class="flex-grow">
+                            <h3 class="font-bold text-white text-lg">Bootcamp QA Avançado</h3>
+                            <p class="text-gray-500 text-xs font-mono mb-3">Avanti / Softex</p>
+                            <p class="text-gray-400 text-sm mb-4" x-text="lang === 'pt' ? 'Formação intensiva em planejamento, execução e automação.' : 'Intensive training in test planning, execution, and automation.'"></p>
+                        </div>
+                        <div class="flex items-center justify-end mt-auto pt-4 border-t border-gray-800">
+                            <a href="https://atlanticoavanti.ensinio.com/c/18101571762866982?utm_source=chatgpt.com" target="_blank" class="flex items-center gap-1 text-xs font-bold text-pink-400 hover:text-white bg-pink-500/10 hover:bg-pink-600 transition-colors px-3 py-1.5 rounded-md">
+                                <span x-text="lang === 'pt' ? 'Ver Certificado' : 'View Certificate'"></span>
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            </a>
+                        </div>
                     </div>
 
                  </div>
@@ -471,75 +573,74 @@
         </section>
 
         <!-- ===== Seção Projetos ===== -->
-        <section id="projetos" class="py-20 bg-dark-200/50">
-            <div class="container mx-auto px-6">
+        <section id="projetos" class="py-20 bg-dark-400/40 backdrop-blur-[2px]">
+            <div class="container mx-auto px-4 md:px-6">
                 <div class="text-center mb-16" data-aos="fade-up">
-                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 font-display">Projetos em Destaque</h2>
-                    <p class="text-gray-400">Códigos que transformei em soluções de qualidade.</p>
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-4 font-display" x-text="lang === 'pt' ? 'Projetos em Destaque' : 'Featured Projects'"></h2>
+                    <p class="text-gray-400" x-text="lang === 'pt' ? 'Códigos que transformei em soluções de qualidade.' : 'Code I transformed into quality solutions.'"></p>
                 </div>
 
-                <!-- Modificado: Flexbox centralizado para UM card expandido -->
-                <div class="flex justify-center" data-aos="fade-up" data-aos-delay="100">
-                    
-                      <!-- Card 1: Cypress SauceDemo (ÚNICO DESTAQUE) -->
-                      <a href="https://github.com/WendelAgra/CYPRESS-SAUCEDEMO" target="_blank" class="group relative rounded-xl overflow-hidden glass-card w-full max-w-3xl block border-2 border-accent/20 hover:border-accent shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                <div class="flex justify-center" data-aos="fade-up">
+                      <!-- Card SauceDemo com Terminal Animado -->
+                      <div class="relative rounded-2xl overflow-hidden glass-card w-full max-w-4xl border border-gray-700 hover:border-accent shadow-2xl transition-all duration-300">
                         
-                        <!-- Imagem com overlay -->
-                        <div class="relative h-64 md:h-80 overflow-hidden">
-                            <div class="absolute inset-0 bg-gradient-to-t from-dark-300 via-transparent to-transparent z-10 opacity-90"></div>
-                            <img src="https://placehold.co/800x400/1e1e2e/0ea5e9?text=Cypress+SauceDemo+E2E" alt="Automação Cypress" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 opacity-80 group-hover:opacity-100">
-                            
-                            <!-- Tags flutuantes -->
-                            <div class="absolute top-4 right-4 z-20 flex gap-2">
-                                <span class="text-xs font-bold text-white bg-accent/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg">E2E Testing</span>
-                                <span class="text-xs font-bold text-white bg-green-500/80 backdrop-blur-sm px-3 py-1 rounded-full shadow-lg">Automação</span>
+                        <!-- Terminal UI (Substituindo a Imagem Falsa) -->
+                        <div class="w-full h-56 md:h-72 bg-[#0d1117] flex flex-col font-mono text-xs md:text-sm">
+                            <!-- Barra topo terminal -->
+                            <div class="bg-[#161b22] px-4 py-2 flex items-center gap-2 border-b border-gray-800">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                <span class="ml-2 text-gray-400 text-xs">bash - cypress-e2e</span>
+                            </div>
+                            <!-- Console Content -->
+                            <div class="p-4 md:p-6 flex-1 text-gray-300 flex flex-col gap-2 relative overflow-hidden">
+                                <p><span class="text-accent">wendel@qa-machine</span>:<span class="text-blue-400">~/saucedemo</span>$ npx cypress run</p>
+                                <p class="text-gray-500 mt-2">========================================================================</p>
+                                <p class="text-white font-bold">  (Run Starting)</p>
+                                <p class="text-gray-500 mb-2">========================================================================</p>
+                                
+                                <div class="flex items-center gap-2 text-green-400" data-aos="fade-in" data-aos-delay="500">
+                                    <span>✓</span> <span>login_spec.cy.js</span> <span class="text-gray-500 text-xs ml-auto">120ms</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-green-400" data-aos="fade-in" data-aos-delay="1000">
+                                    <span>✓</span> <span>checkout_flow.cy.js</span> <span class="text-gray-500 text-xs ml-auto">840ms</span>
+                                </div>
+                                <div class="flex items-center gap-2 text-green-400" data-aos="fade-in" data-aos-delay="1500">
+                                    <span>✓</span> <span>cart_validation.cy.js</span> <span class="text-gray-500 text-xs ml-auto">310ms</span>
+                                </div>
+                                
+                                <!-- Efeito de digitação css -->
+                                <div class="mt-4 text-green-400 font-bold inline-block typing-animation">
+                                    All specs passed! 3 tests, 0 failures.
+                                </div>
                             </div>
                         </div>
                         
                         <!-- Conteúdo do Card -->
-                        <div class="p-8">
-                            <h3 class="text-3xl font-bold text-white mb-3 group-hover:text-accent transition-colors">Automação E2E - SauceDemo</h3>
-                            
-                            <p class="text-gray-300 mb-6 leading-relaxed">
-                                Desenvolvimento completo de uma suíte de testes automatizados End-to-End (E2E) para o e-commerce SauceDemo. 
-                                O projeto valida fluxos críticos de negócio como login, navegação, carrinho e checkout, garantindo a estabilidade da aplicação.
-                            </p>
-
-                            <!-- Detalhes Técnicos em Grid -->
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                                <div class="flex items-start gap-2">
-                                    <svg class="w-5 h-5 text-accent mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    <span class="text-sm text-gray-400">Padrão <strong>Page Objects</strong> para manutenibilidade.</span>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <svg class="w-5 h-5 text-accent mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    <span class="text-sm text-gray-400">Geração de <strong>Relatórios Detalhados</strong> de execução.</span>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <svg class="w-5 h-5 text-accent mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    <span class="text-sm text-gray-400">Cobertura de fluxos de sucesso e exceção.</span>
-                                </div>
-                                <div class="flex items-start gap-2">
-                                    <svg class="w-5 h-5 text-accent mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                    <span class="text-sm text-gray-400">CI/CD Integration Ready.</span>
-                                </div>
+                        <div class="p-6 md:p-8">
+                            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                                <h3 class="text-2xl md:text-3xl font-bold text-white transition-colors">Cypress SauceDemo E2E</h3>
+                                <a href="https://github.com/WendelAgra/CYPRESS-SAUCEDEMO" target="_blank" class="text-sm bg-white/10 hover:bg-accent text-white py-2 px-4 rounded-lg font-bold flex items-center justify-center gap-2 transition-colors shrink-0">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+                                    GitHub
+                                </a>
                             </div>
+                            
+                            <p class="text-gray-300 mb-6 leading-relaxed text-sm md:text-base" x-text="lang === 'pt' ? 'Automação End-to-End (E2E) robusta para o e-commerce SauceDemo. Implementação do padrão Page Object Model (POM) com cenários positivos e negativos, focada em manutenibilidade e reutilização.' : 'Robust End-to-End (E2E) automation for SauceDemo e-commerce. Implementation of Page Object Model (POM) with positive and negative scenarios, focused on maintainability and reuse.'"></p>
 
-                            <!-- Tech Badges -->
-                            <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-700">
-                                <span class="text-xs font-bold text-gray-300 bg-gray-700 px-3 py-1 rounded-md">Cypress</span>
-                                <span class="text-xs font-bold text-gray-300 bg-gray-700 px-3 py-1 rounded-md">JavaScript</span>
-                                <span class="text-xs font-bold text-gray-300 bg-gray-700 px-3 py-1 rounded-md">VS Code</span>
-                                <span class="text-xs font-bold text-gray-300 bg-gray-700 px-3 py-1 rounded-md">Git</span>
+                            <div class="flex flex-wrap gap-2 pt-4 border-t border-gray-800">
+                                <span class="text-xs font-bold text-accent bg-accent/10 px-3 py-1 rounded border border-accent/20">Cypress</span>
+                                <span class="text-xs font-bold text-yellow-400 bg-yellow-400/10 px-3 py-1 rounded border border-yellow-400/20">JavaScript</span>
+                                <span class="text-xs font-bold text-gray-300 bg-gray-800 px-3 py-1 rounded border border-gray-600">POM Pattern</span>
                             </div>
                         </div>
-                    </a>
-
+                    </div>
                 </div>
                 
                 <div class="text-center mt-12">
-                    <a href="https://github.com/WendelAgra" target="_blank" class="inline-flex items-center gap-2 text-accent hover:text-white transition-colors border-b border-accent pb-1">
-                        Ver mais no GitHub
+                    <a href="https://github.com/WendelAgra" target="_blank" class="inline-flex items-center gap-2 text-accent hover:text-white transition-colors border-b border-accent pb-1 text-sm md:text-base">
+                        <span x-text="lang === 'pt' ? 'Ver mais no GitHub' : 'View more on GitHub'"></span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
                 </div>
@@ -547,59 +648,52 @@
         </section>
 
         <!-- ===== Contato ===== -->
-        <section id="contato" class="py-20">
-            <div class="max-w-4xl mx-auto px-6">
-                <div class="glass-card rounded-2xl p-8 md:p-12 text-center relative overflow-hidden" data-aos="zoom-in">
+        <section id="contato" class="py-20 bg-dark-300/40 backdrop-blur-[2px]">
+            <div class="max-w-4xl mx-auto px-4 md:px-6">
+                <div class="glass-card rounded-2xl p-6 md:p-12 text-center relative overflow-hidden" data-aos="zoom-in">
                     <!-- Decorativo -->
                     <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent"></div>
 
-                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 font-display">Vamos Trabalhar Juntos?</h2>
-                    <p class="text-gray-400 mb-10 max-w-xl mx-auto">
-                        Estou disponível para atuar como Analista de QA Jr ou Estagiário. Se busca alguém focado em qualidade, automação e resultados, entre em contato!
-                    </p>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4 font-display" x-text="lang === 'pt' ? 'Vamos Trabalhar Juntos?' : 'Let\'s Work Together?'"></h2>
+                    <p class="text-gray-400 mb-8 max-w-xl mx-auto text-sm md:text-base" x-text="lang === 'pt' ? 'Disponível para oportunidades em QA. Preencha os dados abaixo e me envie uma mensagem diretamente no WhatsApp!' : 'Available for QA opportunities. Fill in the details below and send me a message directly on WhatsApp!'"></p>
 
-                    <form action="https://formspree.io/f/meokprvg" method="POST" class="max-w-md mx-auto space-y-4 text-left">
+                    <!-- Formulário redireciona para WhatsApp via JS -->
+                    <form onsubmit="sendToWhatsApp(event)" class="max-w-md mx-auto space-y-4 text-left relative z-10">
                         <div>
-                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Seu Nome</label>
-                            <input type="text" name="name" required class="w-full bg-dark-200 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-colors" placeholder="Ex: Recrutador">
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block" x-text="lang === 'pt' ? 'Seu Nome' : 'Your Name'"></label>
+                            <input type="text" id="waName" required class="w-full bg-dark-200 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-colors" placeholder="Ex: Recrutador">
                         </div>
                         <div>
-                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Seu Email</label>
-                            <input type="email" name="email" required class="w-full bg-dark-200 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-colors" placeholder="Ex: contato@empresa.com">
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block" x-text="lang === 'pt' ? 'Sua Empresa / E-mail' : 'Company / E-mail'"></label>
+                            <input type="text" id="waEmail" required class="w-full bg-dark-200 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-colors" placeholder="contato@empresa.com">
                         </div>
                         <div>
-                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Mensagem</label>
-                            <textarea name="message" rows="4" required class="w-full bg-dark-200 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-colors" placeholder="Olá Wendel, vi seu portfólio..."></textarea>
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block" x-text="lang === 'pt' ? 'Mensagem' : 'Message'"></label>
+                            <textarea id="waMessage" rows="3" required class="w-full bg-dark-200 border border-gray-700 rounded-lg px-4 py-3 text-white focus:border-accent focus:ring-1 focus:ring-accent outline-none transition-colors" placeholder="Olá Wendel..."></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-gradient-to-r from-accent to-blue-600 hover:from-accent-dark hover:to-blue-700 text-white font-bold py-3 rounded-lg shadow-lg transform hover:-translate-y-1 transition-all">
-                            Enviar Mensagem
+                        <button type="submit" class="w-full bg-[#25D366] hover:bg-[#1DA851] text-white font-bold py-3.5 rounded-lg shadow-lg transform hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg>
+                            <span x-text="lang === 'pt' ? 'Enviar via WhatsApp' : 'Send via WhatsApp'"></span>
                         </button>
                     </form>
                     
-                    <div class="mt-8 text-gray-400 text-sm">
-                        Ou envie um email direto: <a href="mailto:wendelviniciuscontato@gmail.com" class="text-accent hover:underline">wendelviniciuscontato@gmail.com</a>
+                    <div class="mt-8 text-gray-400 text-xs md:text-sm">
+                        <span x-text="lang === 'pt' ? 'E-mail direto: ' : 'Direct E-mail: '"></span>
+                        <a href="mailto:wendelviniciuscontato@gmail.com" class="text-accent hover:underline">wendelviniciuscontato@gmail.com</a>
                     </div>
                 </div>
 
-                <!-- Social Links -->
-                <div class="flex justify-center gap-8 mt-12">
+                <!-- Social Links Internos -->
+                <div class="flex justify-center gap-6 md:gap-8 mt-12">
                     <a href="https://github.com/WendelAgra" target="_blank" class="text-gray-400 hover:text-white transform hover:scale-110 transition-all flex flex-col items-center gap-1 group">
                         <div class="p-3 bg-dark-200 rounded-full group-hover:bg-gray-800 transition-colors">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
                         </div>
-                        <span class="text-xs">GitHub</span>
                     </a>
                     <a href="https://www.linkedin.com/in/wendel-vinicius-975528232/" target="_blank" class="text-gray-400 hover:text-blue-400 transform hover:scale-110 transition-all flex flex-col items-center gap-1 group">
                         <div class="p-3 bg-dark-200 rounded-full group-hover:bg-blue-900/20 transition-colors">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path></svg>
                         </div>
-                        <span class="text-xs">LinkedIn</span>
-                    </a>
-                    <a href="https://wa.me/5581989645252" target="_blank" class="text-gray-400 hover:text-green-400 transform hover:scale-110 transition-all flex flex-col items-center gap-1 group">
-                        <div class="p-3 bg-dark-200 rounded-full group-hover:bg-green-900/20 transition-colors">
-                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg>
-                        </div>
-                          <span class="text-xs">WhatsApp</span>
                     </a>
                 </div>
             </div>
@@ -608,15 +702,26 @@
     </main>
 
     <!-- ===== Footer ===== -->
-    <footer class="bg-dark-300 border-t border-gray-800 py-8 relative z-10">
+    <footer class="bg-dark-400/60 border-t border-gray-800 py-6 relative z-10 backdrop-blur-md">
         <div class="container mx-auto px-6 text-center">
-            <p id="copyright" class="text-gray-500 text-sm mb-2">&copy; 2025 Wendel Agra.</p>
+            <p id="copyright" class="text-gray-500 text-xs md:text-sm"></p>
         </div>
         
-        <!-- Back to Top Button -->
-        <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="fixed bottom-6 right-6 bg-dark-100 border border-gray-700 text-white p-3 rounded-full shadow-lg hover:bg-accent hover:border-accent transition-all z-50 group">
-            <svg class="w-5 h-5 transform group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
-        </button>
+        <!-- BOTOES FLUTUANTES NO CANTO INFERIOR DIREITO -->
+        <div class="fixed bottom-4 right-4 md:bottom-6 md:right-6 flex flex-col gap-3 z-50">
+            <!-- Botão Flutuante do WhatsApp (ZAP) -->
+            <a href="https://wa.me/5581989645252" target="_blank" class="bg-[#25D366] text-white p-3 md:p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] hover:scale-110 hover:shadow-[0_0_30px_rgba(37,211,102,0.6)] transition-all group flex items-center justify-center relative">
+                <span class="absolute right-full mr-4 bg-dark-200 text-white text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-gray-700 hidden md:block">
+                    <span x-text="lang === 'pt' ? 'Falar no WhatsApp' : 'Chat on WhatsApp'"></span>
+                </span>
+                <svg class="w-6 h-6 md:w-7 md:h-7" fill="currentColor" viewBox="0 0 16 16"><path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/></svg>
+            </a>
+            
+            <!-- Botão Back to Top -->
+            <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="bg-dark-100 border border-gray-700 text-white p-2.5 md:p-3 rounded-full shadow-lg hover:bg-accent hover:border-accent transition-all group flex items-center justify-center">
+                <svg class="w-4 h-4 md:w-5 md:h-5 transform group-hover:-translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+            </button>
+        </div>
     </footer>
 
     <!-- Scripts -->
@@ -626,27 +731,41 @@
         // Inicializa AOS
         AOS.init({ duration: 800, once: true, offset: 50 });
 
-        // Particles.js Config
+        // Particles.js (Desempenho Otimizado p/ Mobile + Multicores)
+        const isMobile = window.innerWidth <= 768;
         particlesJS('particles-js', {
             "particles": {
-                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
-                "color": { "value": "#0ea5e9" }, // Sky 500
+                "number": { "value": isMobile ? 30 : 70, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": ["#0ea5e9", "#a855f7", "#ec4899"] }, /* Multi-cores */
                 "shape": { "type": "circle" },
-                "opacity": { "value": 0.3, "random": true },
-                "size": { "value": 3, "random": true },
-                "line_linked": { "enable": true, "distance": 150, "color": "#0ea5e9", "opacity": 0.2, "width": 1 },
-                "move": { "enable": true, "speed": 1.5, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+                "opacity": { "value": 0.6, "random": true },
+                "size": { "value": 4, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#0ea5e9", "opacity": 0.25, "width": 1.5 },
+                "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "straight": false, "out_mode": "out", "bounce": false }
             },
             "interactivity": {
                 "detect_on": "canvas",
-                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+                "events": { "onhover": { "enable": !isMobile, "mode": "grab" }, "onclick": { "enable": false }, "resize": true },
                 "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } } }
             },
             "retina_detect": true
         });
 
+        // Função de envio direto para o WhatsApp
+        function sendToWhatsApp(e) {
+            e.preventDefault();
+            const name = document.getElementById('waName').value;
+            const email = document.getElementById('waEmail').value;
+            const msg = document.getElementById('waMessage').value;
+            
+            const isEnglish = document.documentElement.getAttribute('lang') === 'en'; // ou pegue da variavel Alpine
+            
+            const text = `Olá Wendel! Vim pelo seu portfólio.%0A%0A*Nome:* ${name}%0A*Contato:* ${email}%0A*Mensagem:* ${msg}`;
+            window.open(`https://wa.me/5581989645252?text=${text}`, '_blank');
+        }
+
         // Atualiza Copyright
-        document.getElementById('copyright').innerHTML = `&copy; ${new Date().getFullYear()} Wendel Agra.`;
+        document.getElementById('copyright').innerHTML = `&copy; ${new Date().getFullYear()} Wendel Vinicius Agra.`;
     </script>
 </body>
 </html>
