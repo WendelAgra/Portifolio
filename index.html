@@ -45,6 +45,8 @@
                     animation: {
                         'infinite-scroll': 'infinite-scroll 40s linear infinite',
                         'pulse-glow': 'pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'float-delayed': 'float 6s ease-in-out 3s infinite',
                     },
                     keyframes: {
                         'infinite-scroll': {
@@ -54,6 +56,10 @@
                         'pulse-glow': {
                             '0%, 100%': { opacity: 1, filter: 'drop-shadow(0 0 15px rgba(14, 165, 233, 0.6))' },
                             '50%': { opacity: .7, filter: 'drop-shadow(0 0 5px rgba(14, 165, 233, 0.3))' },
+                        },
+                        'float': {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
                         }
                     }
                 }
@@ -295,7 +301,6 @@
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                         </a>
                         
-                        <!-- NOVO: Botão de Baixar CV -->
                         <a href="Wendel_Vinicius_QA_CV_Atualizado.pdf" target="_blank" download class="bg-dark-200 border border-gray-700 hover:border-accent text-white font-bold py-3.5 px-8 rounded-lg transition-all flex items-center justify-center gap-2 group w-full sm:w-auto">
                             <svg class="w-5 h-5 text-gray-400 group-hover:text-accent transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                             <span x-text="lang === 'pt' ? 'Baixar CV' : 'Download Resume'"></span>
@@ -306,9 +311,32 @@
                 <!-- Avatar com bordas geométricas -->
                 <div class="order-1 lg:order-2 flex justify-center relative" data-aos="fade-left">
                     <div class="absolute inset-0 bg-accent/20 blur-[100px] rounded-full"></div>
-                    <div class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-80 lg:h-80 rounded-full p-2 bg-gradient-to-br from-accent via-neon-purple to-neon-pink animate-[spin_10s_linear_infinite]">
-                        <div class="w-full h-full rounded-full bg-dark-300 p-1 overflow-hidden relative">
-                            <img src="wendel-vinicius.jpg" alt="Wendel Vinicius" class="w-full h-full object-cover rounded-full animate-[spin_10s_linear_infinite_reverse]" onerror="this.src='https://ui-avatars.com/api/?name=Wendel+Vinicius&background=0ea5e9&color=fff&size=512'">
+                    
+                    <!-- Wrapper fixo para ancorar os ícones flutuantes corretamente ao redor do círculo -->
+                    <div class="relative w-56 h-56 sm:w-64 sm:h-64 lg:w-80 lg:h-80">
+                        
+                        <!-- Ícones Flutuantes (4 ferramentas principais) -->
+                        <div class="absolute -top-2 -left-2 sm:-top-4 sm:-left-4 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-dark-300/80 backdrop-blur border border-accent/30 rounded-full flex items-center justify-center animate-float shadow-[0_0_15px_rgba(14,165,233,0.3)]" title="Cypress">
+                            <img src="https://cdn.simpleicons.org/cypress/0ea5e9" onerror="this.onerror=null; this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cypressio/cypressio-original.svg'" alt="Cypress" class="w-5 h-5 sm:w-6 sm:h-6">
+                        </div>
+                        
+                        <div class="absolute top-10 -right-4 sm:top-12 sm:-right-6 lg:-right-8 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-dark-300/80 backdrop-blur border border-neon-purple/30 rounded-full flex items-center justify-center animate-float-delayed shadow-[0_0_15px_rgba(168,85,247,0.3)]" title="Playwright">
+                            <img src="https://cdn.simpleicons.org/playwright/a855f7" onerror="this.onerror=null; this.src='https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/playwright/playwright-original.svg'" alt="Playwright" class="w-5 h-5 sm:w-6 sm:h-6">
+                        </div>
+                        
+                        <div class="absolute bottom-12 -left-4 sm:bottom-16 sm:-left-6 lg:-left-8 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-dark-300/80 backdrop-blur border border-gray-500/30 rounded-full flex items-center justify-center animate-float-delayed shadow-[0_0_15px_rgba(255,255,255,0.2)]" title="Robot Framework">
+                            <img src="https://cdn.simpleicons.org/robotframework/ffffff" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=RF&background=transparent&color=fff&font-size=0.5&bold=true'" alt="Robot Framework" class="w-5 h-5 sm:w-6 sm:h-6">
+                        </div>
+                        
+                        <div class="absolute -bottom-2 -right-2 sm:-bottom-4 sm:-right-4 z-20 w-10 h-10 sm:w-12 sm:h-12 bg-dark-300/80 backdrop-blur border border-neon-pink/30 rounded-full flex items-center justify-center animate-float shadow-[0_0_15px_rgba(236,72,153,0.3)]" title="Appium">
+                            <img src="https://cdn.simpleicons.org/appium/ec4899" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=Ap&background=transparent&color=ec4899&font-size=0.5&bold=true'" alt="Appium" class="w-5 h-5 sm:w-6 sm:h-6">
+                        </div>
+
+                        <!-- Círculo animado da Foto -->
+                        <div class="relative w-full h-full rounded-full p-2 bg-gradient-to-br from-accent via-neon-purple to-neon-pink animate-[spin_10s_linear_infinite]">
+                            <div class="w-full h-full rounded-full bg-dark-300 p-1 overflow-hidden relative">
+                                <img src="wendel-vinicius.jpg" alt="Wendel Vinicius" class="w-full h-full object-cover rounded-full animate-[spin_10s_linear_infinite_reverse]" onerror="this.src='https://ui-avatars.com/api/?name=Wendel+Vinicius&background=0ea5e9&color=fff&size=512'">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -329,7 +357,7 @@
                     <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-blue-500">●</span> Docker</span>
                     <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-green-500">●</span> CI/CD</span>
                 </div>
-                <!-- Bloco 2 (Duplicado exato para o loop perfeito) -->
+                <!-- Bloco 2 -->
                 <div class="flex items-center justify-center gap-10 md:gap-16 px-5 md:px-8 whitespace-nowrap" aria-hidden="true">
                     <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-accent">●</span> Cypress</span>
                     <span class="text-lg md:text-2xl font-bold text-gray-500 flex items-center gap-2"><span class="text-neon-purple">●</span> Playwright</span>
@@ -351,16 +379,15 @@
                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-6 font-display border-l-4 border-accent pl-4" data-aos="fade-up" x-text="lang === 'pt' ? 'Sobre Mim' : 'About Me'"></h2>
                     
                     <div class="glass-card hover-accent p-6 md:p-8 rounded-2xl relative overflow-hidden" data-aos="fade-up" data-aos-delay="100">
-                        <!-- Elemento decorativo de fundo -->
                         <div class="absolute -right-20 -top-20 w-64 h-64 bg-accent/5 rounded-full blur-3xl pointer-events-none"></div>
                         
                         <div class="relative z-10 space-y-5 text-base md:text-lg text-gray-300 leading-relaxed">
                             
-                            <p x-html="lang === 'pt' ? 'Atuando como <span class=\'text-white font-bold\'>QA Engineer</span> e graduando em Ciência da Computação (Caruaru-PE), minha missão é garantir entregas de software impecáveis. Transformo requisitos complexos de negócios em coberturas de teste robustas, garantindo a qualidade em toda a jornada de desenvolvimento.' : 'Acting as a <span class=\'text-white font-bold\'>QA Engineer</span> and majoring in Computer Science (Caruaru-PE, Brazil), my mission is to ensure flawless software delivery. I transform complex business requirements into robust test coverage, ensuring quality throughout the development journey.'"></p>
+                            <p x-html="lang === 'pt' ? 'Atuando como <span class=\'text-white font-bold\'>QA Engineer</span> e graduado em Ciência da Computação em Caruaru-PE, minha missão é garantir entregas de software com alta qualidade. Transformo requisitos complexos de negócio em coberturas de testes robustas, assegurando a qualidade em toda a jornada de desenvolvimento.' : 'Acting as a <span class=\'text-white font-bold\'>QA Engineer</span> and holding a degree in Computer Science from Caruaru-PE, my mission is to ensure high-quality software deliveries. I transform complex business requirements into robust test coverage, ensuring quality throughout the development journey.'"></p>
                             
-                            <p x-html="lang === 'pt' ? 'Possuo sólida experiência prática com <span class=\'text-accent font-semibold\'>Automação Web, Mobile e API</span>. Utilizo ferramentas de ponta como <strong>Cypress, Playwright, Robot Framework, Appium e Postman</strong> para criar testes eficientes e escaláveis, totalmente integrados a esteiras de <span class=\'text-green-400 font-semibold\'>CI/CD</span>.' : 'I have solid hands-on experience with <span class=\'text-accent font-semibold\'>Web, Mobile, and API Automation</span>. I use cutting-edge tools like <strong>Cypress, Playwright, Robot Framework, Appium, and Postman</strong> to create efficient and scalable tests, fully integrated into <span class=\'text-green-400 font-semibold\'>CI/CD</span> pipelines.'"></p>
+                            <p x-html="lang === 'pt' ? 'Possuo sólida experiência prática com automação de testes <span class=\'text-accent font-semibold\'>Web, Mobile e API</span>. Utilizo ferramentas como <strong>Cypress, Playwright, Robot Framework, Appium e Postman</strong> para criar testes eficientes e escaláveis, integrados a pipelines de <span class=\'text-green-400 font-semibold\'>CI/CD</span>.' : 'I have solid hands-on experience with <span class=\'text-accent font-semibold\'>Web, Mobile, and API Test Automation</span>. I use tools like <strong>Cypress, Playwright, Robot Framework, Appium, and Postman</strong> to create efficient and scalable tests, integrated into <span class=\'text-green-400 font-semibold\'>CI/CD</span> pipelines.'"></p>
                             
-                            <p x-html="lang === 'pt' ? 'Meu principal diferencial é a mentalidade voltada para a inovação: pesquiso ativamente sobre a aplicação de <span class=\'text-neon-purple font-semibold\'>Inteligência Artificial em QA</span>. Busco otimizar processos de validação e explorar testes guiados por IA para aumentar a velocidade e segurança das entregas ágeis.' : 'My main differential is an innovation-driven mindset: I actively research the application of <span class=\'text-neon-purple font-semibold\'>Artificial Intelligence in QA</span>. I seek to optimize validation processes and explore AI-guided testing to increase the speed and security of agile deliveries.'"></p>
+                            <p x-html="lang === 'pt' ? 'Meu principal diferencial é a mentalidade voltada para a inovação. Pesquiso ativamente a aplicação da <span class=\'text-neon-purple font-semibold\'>Inteligência Artificial em QA</span>, buscando otimizar processos de validação e explorar testes guiados por IA para aumentar a velocidade, a eficiência e a segurança das entregas ágeis.' : 'My main differentiator is an innovation-driven mindset. I actively research the application of <span class=\'text-neon-purple font-semibold\'>Artificial Intelligence in QA</span>, seeking to optimize validation processes and explore AI-guided testing to increase the speed, efficiency, and security of agile deliveries.'"></p>
                             
                             <!-- Divisor -->
                             <div class="w-full h-px bg-gray-800 my-6"></div>
@@ -465,7 +492,7 @@
                         <div class="glass-card hover-accent p-5 md:p-6 rounded-xl">
                             <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-2 gap-1">
                                 <h3 class="text-xl font-bold text-white" x-text="lang === 'pt' ? 'Estagiário de QA' : 'QA Intern'"></h3>
-                                <span class="text-accent text-xs md:text-sm font-mono bg-accent/10 px-2 py-1 rounded">Ago/2024 - Atual</span>
+                                <span class="text-accent text-xs md:text-sm font-mono bg-accent/10 px-2 py-1 rounded">Ago/2025 - Atual</span>
                             </div>
                             <p class="text-gray-400 text-sm mb-4">Rem Soft Sistemas | Remoto</p>
                             <ul class="text-gray-300 text-sm leading-relaxed list-none space-y-2">
@@ -483,7 +510,7 @@
                         <div class="glass-card hover-purple p-5 md:p-6 rounded-xl">
                              <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-2 gap-1">
                                 <h3 class="text-xl font-bold text-white" x-text="lang === 'pt' ? 'Estagiário de QA' : 'QA Intern'"></h3>
-                                <span class="text-neon-purple text-xs md:text-sm font-mono bg-neon-purple/10 px-2 py-1 rounded">Jun/2023 - Mai/2024</span>
+                                <span class="text-neon-purple text-xs md:text-sm font-mono bg-neon-purple/10 px-2 py-1 rounded">Jun/2024 - Mai/2025</span>
                             </div>
                             <p class="text-gray-400 text-sm mb-4">WATI Consultoria | Remoto</p>
                             <ul class="text-gray-300 text-sm leading-relaxed list-none space-y-2">
